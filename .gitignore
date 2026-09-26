@@ -4,6 +4,10 @@
 !.env.example
 *.pem
 *.key
+.claude/
+.codex/
+**/.claude/
+**/.codex/
 
 # Editors and operating systems
 .idea/
