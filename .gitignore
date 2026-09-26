@@ -1,0 +1,30 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Dependencies and build output
+node_modules/
+.next/
+dist/
+build/
+target/
+.gradle/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Logs and local databases
+*.log
+*.sqlite
+*.sqlite3
