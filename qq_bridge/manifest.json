@@ -1,0 +1,19 @@
+{
+  "manifest_version": 4,
+  "type": "extension",
+  "name": "Jev Default Open Bridge",
+  "slug": "jev-default-open-bridge",
+  "description": "Local-only QQ context bridge for Jev Default Open.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "jev-default-open"
+    }
+  ],
+  "platform": ["win32"],
+  "injects": {
+    "main": "src/main.js",
+    "preload": "src/preload.js",
+    "renderer": "src/renderer.js"
+  }
+}
