@@ -1,4 +1,13 @@
 "use strict";
 
-// TODO: Expose a minimal context-only bridge to the renderer.
-// TODO: Do not expose filesystem, process, or arbitrary IPC primitives.
+const { contextBridge, ipcRenderer } = require("electron");
+const { validateClick } = require("./protocol");
+
+contextBridge.exposeInMainWorld("jevDefaultOpen", Object.freeze({
+  reportTarget(value) {
+    const click = validateClick(value);
+    if (!click) return false;
+    ipcRenderer.send("jev-default-open:target", click);
+    return true;
+  },
+}));

@@ -1,5 +1,6 @@
 "use strict";
 
-// TODO: Observe current conversation identity and clicked file/link messages.
-// TODO: Emit target, conversation ID, message ID, and a monotonic timestamp.
-// TODO: Avoid collecting unrelated contacts, windows, or entire chat history.
+// Deliberately inactive without a verified version-specific message adapter.
+// Do not scrape generic DOM containers, contacts, sidebars, or document titles.
+// A trusted adapter may report {target, message_id} through reportTarget; the
+// main process must resolve the actual account, conversation, and message list.

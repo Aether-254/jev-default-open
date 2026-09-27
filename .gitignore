@@ -32,3 +32,11 @@ venv/
 *.log
 *.sqlite
 *.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.dpapi
+.pytest_cache/
+.ruff_cache/
+native/build*/
+artifacts/

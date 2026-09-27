@@ -16,3 +16,7 @@ class ProviderUnavailable(JevOpenError):
 
 class LaunchFailed(JevOpenError):
     """The selected Open Action could not be invoked."""
+
+
+class UnsupportedTarget(JevOpenError):
+    """The intercepted target must bypass contextual routing."""

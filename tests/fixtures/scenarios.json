@@ -1,0 +1,1982 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "name": "Jev Open synthetic routing benchmark",
+    "origin": "synthetic",
+    "created_at": "2026-09-27",
+    "contains_private_data": false,
+    "description": "All targets, messages, identities and app paths were authored for evaluation. Nothing was read from real chats, installed profiles or private files. URLs use reserved .invalid names. Actions are never launched.",
+    "intended_use": "Offline schema validation by default; explicit live Jev evaluation only.",
+    "scene_set": [
+      "personal",
+      "work_general",
+      "finance",
+      "data_analysis",
+      "software_development",
+      "creative_media",
+      "learning",
+      "unknown"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "personal-shopping",
+      "title": "Private shopping",
+      "expected_scene": "personal",
+      "expected_action_id": "chrome.personal",
+      "context": {
+        "request": {
+          "request_id": "synthetic-personal-shopping",
+          "source_pid": 10000,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "https://shop.example.invalid/cart",
+          "working_directory": null,
+          "captured_at": "2026-09-27T10:00:00+08:00"
+        },
+        "target": {
+          "kind": "url",
+          "url": "https://shop.example.invalid/cart",
+          "scheme": "https",
+          "host": "shop.example.invalid"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-personal-shopping",
+          "conversation_title": "Weekend Plans",
+          "conversation_labels": [
+            "personal"
+          ],
+          "target_message_id": "synthetic-message-personal-shopping",
+          "messages": [
+            {
+              "message_id": "synthetic-message-personal-shopping",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:00:00+08:00",
+              "message_type": "text",
+              "text": "Please use your own shopping account to order the birthday gift for our family."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "chrome.personal",
+            "application_id": "chrome",
+            "profile_id": "personal",
+            "display_name": "Chrome Personal",
+            "capability_description": "Browser personal profile for private accounts, leisure, shopping and household use.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "chrome.work",
+            "application_id": "chrome",
+            "profile_id": "work",
+            "display_name": "Chrome Work",
+            "capability_description": "Browser work profile for the fictional Example Company intranet, company documents and meetings.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "edge.study",
+            "application_id": "edge",
+            "profile_id": "study",
+            "display_name": "Edge Study",
+            "capability_description": "Browser study profile for courses, university research and educational PDF reading.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\msedge.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "personal-photo",
+      "title": "Household photo viewing",
+      "expected_scene": "personal",
+      "expected_action_id": "photos.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-personal-photo",
+          "source_pid": 10001,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Personal\\Family\\weekend.png",
+          "working_directory": "C:\\Synthetic\\Personal\\Family",
+          "captured_at": "2026-09-27T10:01:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Personal\\Family\\weekend.png",
+          "extension": ".png",
+          "mime_type": "image/png",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:01:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-personal-photo",
+          "conversation_title": "Family Chat",
+          "conversation_labels": [
+            "personal"
+          ],
+          "target_message_id": "synthetic-message-personal-photo",
+          "messages": [
+            {
+              "message_id": "synthetic-message-personal-photo",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:01:00+08:00",
+              "message_type": "text",
+              "text": "Here is our family photo from the picnic. Open it so we can look at it together."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "personal"
+        ],
+        "open_actions": [
+          {
+            "action_id": "photos.default",
+            "application_id": "photos",
+            "profile_id": null,
+            "display_name": "Photos",
+            "capability_description": "System default image viewer for PNG photographs and ordinary images without editing.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Photos.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "paint.default",
+            "application_id": "paint",
+            "profile_id": null,
+            "display_name": "Paint",
+            "capability_description": "Image editor for cropping, annotating and drawing on PNG images.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\mspaint.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "personal-trip",
+      "title": "Private holiday booking",
+      "expected_scene": "personal",
+      "expected_action_id": "chrome.personal",
+      "context": {
+        "request": {
+          "request_id": "synthetic-personal-trip",
+          "source_pid": 10002,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "https://travel.example.invalid/booking/holiday",
+          "working_directory": null,
+          "captured_at": "2026-09-27T10:02:00+08:00"
+        },
+        "target": {
+          "kind": "url",
+          "url": "https://travel.example.invalid/booking/holiday",
+          "scheme": "https",
+          "host": "travel.example.invalid"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-personal-trip",
+          "conversation_title": "Holiday Planning",
+          "conversation_labels": [
+            "personal"
+          ],
+          "target_message_id": "synthetic-message-personal-trip",
+          "messages": [
+            {
+              "message_id": "synthetic-message-personal-trip",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:02:00+08:00",
+              "message_type": "text",
+              "text": "This is our private holiday booking, paid with our household account, unrelated to work."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "chrome.personal",
+            "application_id": "chrome",
+            "profile_id": "personal",
+            "display_name": "Chrome Personal",
+            "capability_description": "Browser personal profile for private accounts, leisure, shopping and household use.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "chrome.work",
+            "application_id": "chrome",
+            "profile_id": "work",
+            "display_name": "Chrome Work",
+            "capability_description": "Browser work profile for the fictional Example Company intranet, company documents and meetings.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "work-intranet",
+      "title": "Company task board",
+      "expected_scene": "work_general",
+      "expected_action_id": "chrome.work",
+      "context": {
+        "request": {
+          "request_id": "synthetic-work-intranet",
+          "source_pid": 10003,
+          "source_executable": "C:\\SyntheticApps\\DingTalk.exe",
+          "verb": "open",
+          "target": "https://portal.example.invalid/tasks/weekly",
+          "working_directory": null,
+          "captured_at": "2026-09-27T10:03:00+08:00"
+        },
+        "target": {
+          "kind": "url",
+          "url": "https://portal.example.invalid/tasks/weekly",
+          "scheme": "https",
+          "host": "portal.example.invalid"
+        },
+        "source_application": "DingTalk",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "dingtalk",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-work-intranet",
+          "conversation_title": "Example Company Operations",
+          "conversation_labels": [
+            "work"
+          ],
+          "target_message_id": "synthetic-message-work-intranet",
+          "messages": [
+            {
+              "message_id": "synthetic-message-work-intranet",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:03:00+08:00",
+              "message_type": "text",
+              "text": "Open the company task board with the company account before our operations meeting."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "chrome.personal",
+            "application_id": "chrome",
+            "profile_id": "personal",
+            "display_name": "Chrome Personal",
+            "capability_description": "Browser personal profile for private accounts, leisure, shopping and household use.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "chrome.work",
+            "application_id": "chrome",
+            "profile_id": "work",
+            "display_name": "Chrome Work",
+            "capability_description": "Browser work profile for the fictional Example Company intranet, company documents and meetings.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "edge.study",
+            "application_id": "edge",
+            "profile_id": "study",
+            "display_name": "Edge Study",
+            "capability_description": "Browser study profile for courses, university research and educational PDF reading.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\msedge.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "work-policy",
+      "title": "Staff policy",
+      "expected_scene": "work_general",
+      "expected_action_id": "chrome.work",
+      "context": {
+        "request": {
+          "request_id": "synthetic-work-policy",
+          "source_pid": 10004,
+          "source_executable": "C:\\SyntheticApps\\DingTalk.exe",
+          "verb": "open",
+          "target": "https://docs.example.invalid/policies/travel",
+          "working_directory": null,
+          "captured_at": "2026-09-27T10:04:00+08:00"
+        },
+        "target": {
+          "kind": "url",
+          "url": "https://docs.example.invalid/policies/travel",
+          "scheme": "https",
+          "host": "docs.example.invalid"
+        },
+        "source_application": "DingTalk",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "dingtalk",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-work-policy",
+          "conversation_title": "Example Company Staff",
+          "conversation_labels": [
+            "work"
+          ],
+          "target_message_id": "synthetic-message-work-policy",
+          "messages": [
+            {
+              "message_id": "synthetic-message-work-policy",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:04:00+08:00",
+              "message_type": "text",
+              "text": "Please read the updated company travel policy on our authenticated staff portal."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "chrome.personal",
+            "application_id": "chrome",
+            "profile_id": "personal",
+            "display_name": "Chrome Personal",
+            "capability_description": "Browser personal profile for private accounts, leisure, shopping and household use.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "chrome.work",
+            "application_id": "chrome",
+            "profile_id": "work",
+            "display_name": "Chrome Work",
+            "capability_description": "Browser work profile for the fictional Example Company intranet, company documents and meetings.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "work-calendar",
+      "title": "Work meeting invitation",
+      "expected_scene": "work_general",
+      "expected_action_id": "chrome.work",
+      "context": {
+        "request": {
+          "request_id": "synthetic-work-calendar",
+          "source_pid": 10005,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "https://calendar.example.invalid/team/operations",
+          "working_directory": null,
+          "captured_at": "2026-09-27T10:05:00+08:00"
+        },
+        "target": {
+          "kind": "url",
+          "url": "https://calendar.example.invalid/team/operations",
+          "scheme": "https",
+          "host": "calendar.example.invalid"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-work-calendar",
+          "conversation_title": "Example Company Team",
+          "conversation_labels": [
+            "work"
+          ],
+          "target_message_id": "synthetic-message-work-calendar",
+          "messages": [
+            {
+              "message_id": "synthetic-message-work-calendar",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:05:00+08:00",
+              "message_type": "text",
+              "text": "Our department planning meeting is on the company calendar. Join with your work account."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "chrome.personal",
+            "application_id": "chrome",
+            "profile_id": "personal",
+            "display_name": "Chrome Personal",
+            "capability_description": "Browser personal profile for private accounts, leisure, shopping and household use.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "chrome.work",
+            "application_id": "chrome",
+            "profile_id": "work",
+            "display_name": "Chrome Work",
+            "capability_description": "Browser work profile for the fictional Example Company intranet, company documents and meetings.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "edge.study",
+            "application_id": "edge",
+            "profile_id": "study",
+            "display_name": "Edge Study",
+            "capability_description": "Browser study profile for courses, university research and educational PDF reading.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\msedge.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "finance-budget",
+      "title": "Budget formula review",
+      "expected_scene": "finance",
+      "expected_action_id": "excel.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-finance-budget",
+          "source_pid": 10006,
+          "source_executable": "C:\\SyntheticApps\\DingTalk.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Work\\Finance\\quarterly-budget.xlsx",
+          "working_directory": "C:\\Synthetic\\Work\\Finance",
+          "captured_at": "2026-09-27T10:06:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Work\\Finance\\quarterly-budget.xlsx",
+          "extension": ".xlsx",
+          "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:06:00+08:00"
+        },
+        "source_application": "DingTalk",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "dingtalk",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-finance-budget",
+          "conversation_title": "Budget Review",
+          "conversation_labels": [
+            "finance",
+            "work"
+          ],
+          "target_message_id": "synthetic-message-finance-budget",
+          "messages": [
+            {
+              "message_id": "synthetic-message-finance-budget",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:06:00+08:00",
+              "message_type": "text",
+              "text": "Review the quarterly budget formulas in Excel and check department totals before the finance meeting."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "finance",
+          "work"
+        ],
+        "open_actions": [
+          {
+            "action_id": "excel.default",
+            "application_id": "excel",
+            "profile_id": null,
+            "display_name": "Microsoft Excel",
+            "capability_description": "Spreadsheet editor for XLSX, CSV and TSV tables, accounting, financial formulas, budgets and financial review.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\EXCEL.EXE",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "libreoffice.calc",
+            "application_id": "libreoffice",
+            "profile_id": null,
+            "display_name": "LibreOffice Calc",
+            "capability_description": "Alternative editor for XLSX, CSV and TSV spreadsheets without company spreadsheet workflow integration.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\scalc.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "finance-invoice",
+      "title": "Invoice reconciliation",
+      "expected_scene": "finance",
+      "expected_action_id": "excel.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-finance-invoice",
+          "source_pid": 10007,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Work\\Finance\\invoice-reconciliation.csv",
+          "working_directory": "C:\\Synthetic\\Work\\Finance",
+          "captured_at": "2026-09-27T10:07:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Work\\Finance\\invoice-reconciliation.csv",
+          "extension": ".csv",
+          "mime_type": "text/csv",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:07:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-finance-invoice",
+          "conversation_title": "Accounting",
+          "conversation_labels": [
+            "finance",
+            "work"
+          ],
+          "target_message_id": "synthetic-message-finance-invoice",
+          "messages": [
+            {
+              "message_id": "synthetic-message-finance-invoice",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:07:00+08:00",
+              "message_type": "text",
+              "text": "Reconcile invoice amounts in Excel, sum balances and flag unpaid rows for the accountants."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "finance",
+          "work"
+        ],
+        "open_actions": [
+          {
+            "action_id": "vscode.analysis",
+            "application_id": "vscode",
+            "profile_id": "analysis",
+            "display_name": "VS Code Data Analysis",
+            "capability_description": "Data Analysis profile with Python and notebook tools for examining CSV, TSV, JSON datasets and analytical projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "excel.default",
+            "application_id": "excel",
+            "profile_id": null,
+            "display_name": "Microsoft Excel",
+            "capability_description": "Spreadsheet editor for XLSX, CSV and TSV tables, accounting, financial formulas, budgets and financial review.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\EXCEL.EXE",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "notepad.default",
+            "application_id": "notepad",
+            "profile_id": null,
+            "display_name": "Notepad",
+            "capability_description": "System default plain-text editor for viewing TXT, CSV and JSON without a development project.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\notepad.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "finance-forecast",
+      "title": "Finance path without chat",
+      "expected_scene": "finance",
+      "expected_action_id": "excel.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-finance-forecast",
+          "source_pid": 10008,
+          "source_executable": "C:\\SyntheticApps\\explorer.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Work\\Finance\\CashFlow\\cash-flow-forecast.xlsx",
+          "working_directory": "C:\\Synthetic\\Work\\Finance\\CashFlow",
+          "captured_at": "2026-09-27T10:08:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Work\\Finance\\CashFlow\\cash-flow-forecast.xlsx",
+          "extension": ".xlsx",
+          "mime_type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:08:00+08:00"
+        },
+        "source_application": "explorer",
+        "source_account_hash": null,
+        "chat_context": null,
+        "path_labels": [
+          "finance",
+          "cash-flow",
+          "spreadsheet-review"
+        ],
+        "open_actions": [
+          {
+            "action_id": "excel.default",
+            "application_id": "excel",
+            "profile_id": null,
+            "display_name": "Microsoft Excel",
+            "capability_description": "Spreadsheet editor for XLSX, CSV and TSV tables, accounting, financial formulas, budgets and financial review.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\EXCEL.EXE",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "libreoffice.calc",
+            "application_id": "libreoffice",
+            "profile_id": null,
+            "display_name": "LibreOffice Calc",
+            "capability_description": "Alternative editor for XLSX, CSV and TSV spreadsheets without company spreadsheet workflow integration.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\scalc.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-csv",
+      "title": "Python CSV analysis",
+      "expected_scene": "data_analysis",
+      "expected_action_id": "vscode.analysis",
+      "context": {
+        "request": {
+          "request_id": "synthetic-data-csv",
+          "source_pid": 10009,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Projects\\DataAnalysis\\experiment-observations.csv",
+          "working_directory": "C:\\Synthetic\\Projects\\DataAnalysis",
+          "captured_at": "2026-09-27T10:09:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Projects\\DataAnalysis\\experiment-observations.csv",
+          "extension": ".csv",
+          "mime_type": "text/csv",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:09:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-data-csv",
+          "conversation_title": "Research Analytics",
+          "conversation_labels": [
+            "data-analysis",
+            "python"
+          ],
+          "target_message_id": "synthetic-message-data-csv",
+          "messages": [
+            {
+              "message_id": "synthetic-message-data-csv",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:09:00+08:00",
+              "message_type": "text",
+              "text": "Inspect this dataset beside our Python analysis scripts in the Data Analysis profile, then fit the regression."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "data-analysis",
+          "python"
+        ],
+        "open_actions": [
+          {
+            "action_id": "excel.default",
+            "application_id": "excel",
+            "profile_id": null,
+            "display_name": "Microsoft Excel",
+            "capability_description": "Spreadsheet editor for XLSX, CSV and TSV tables, accounting, financial formulas, budgets and financial review.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\EXCEL.EXE",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "vscode.analysis",
+            "application_id": "vscode",
+            "profile_id": "analysis",
+            "display_name": "VS Code Data Analysis",
+            "capability_description": "Data Analysis profile with Python and notebook tools for examining CSV, TSV, JSON datasets and analytical projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "notepad.default",
+            "application_id": "notepad",
+            "profile_id": null,
+            "display_name": "Notepad",
+            "capability_description": "System default plain-text editor for viewing TXT, CSV and JSON without a development project.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\notepad.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-json",
+      "title": "Statistical JSON exploration",
+      "expected_scene": "data_analysis",
+      "expected_action_id": "vscode.analysis",
+      "context": {
+        "request": {
+          "request_id": "synthetic-data-json",
+          "source_pid": 10010,
+          "source_executable": "C:\\SyntheticApps\\DingTalk.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Projects\\DataAnalysis\\samples.json",
+          "working_directory": "C:\\Synthetic\\Projects\\DataAnalysis",
+          "captured_at": "2026-09-27T10:10:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Projects\\DataAnalysis\\samples.json",
+          "extension": ".json",
+          "mime_type": "application/json",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:10:00+08:00"
+        },
+        "source_application": "DingTalk",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "dingtalk",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-data-json",
+          "conversation_title": "Analytics",
+          "conversation_labels": [
+            "statistics",
+            "data-analysis"
+          ],
+          "target_message_id": "synthetic-message-data-json",
+          "messages": [
+            {
+              "message_id": "synthetic-message-data-json",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:10:00+08:00",
+              "message_type": "text",
+              "text": "These are experiment observations, not application configuration. Explore their distributions in the Python analysis workspace."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "statistics",
+          "data-analysis"
+        ],
+        "open_actions": [
+          {
+            "action_id": "vscode.development",
+            "application_id": "vscode",
+            "profile_id": "development",
+            "display_name": "VS Code Development",
+            "capability_description": "Development profile for code, JSON configuration, debugging and software projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "vscode.analysis",
+            "application_id": "vscode",
+            "profile_id": "analysis",
+            "display_name": "VS Code Data Analysis",
+            "capability_description": "Data Analysis profile with Python and notebook tools for examining CSV, TSV, JSON datasets and analytical projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "notepad.default",
+            "application_id": "notepad",
+            "profile_id": null,
+            "display_name": "Notepad",
+            "capability_description": "System default plain-text editor for viewing TXT, CSV and JSON without a development project.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\notepad.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "data-tsv",
+      "title": "Dataset path without chat",
+      "expected_scene": "data_analysis",
+      "expected_action_id": "vscode.analysis",
+      "context": {
+        "request": {
+          "request_id": "synthetic-data-tsv",
+          "source_pid": 10011,
+          "source_executable": "C:\\SyntheticApps\\explorer.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Projects\\DataAnalysis\\PythonPipeline\\training-samples.tsv",
+          "working_directory": "C:\\Synthetic\\Projects\\DataAnalysis\\PythonPipeline",
+          "captured_at": "2026-09-27T10:11:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Projects\\DataAnalysis\\PythonPipeline\\training-samples.tsv",
+          "extension": ".tsv",
+          "mime_type": "text/tab-separated-values",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:11:00+08:00"
+        },
+        "source_application": "explorer",
+        "source_account_hash": null,
+        "chat_context": null,
+        "path_labels": [
+          "data-analysis",
+          "python-pipeline",
+          "dataset"
+        ],
+        "open_actions": [
+          {
+            "action_id": "excel.default",
+            "application_id": "excel",
+            "profile_id": null,
+            "display_name": "Microsoft Excel",
+            "capability_description": "Spreadsheet editor for XLSX, CSV and TSV tables, accounting, financial formulas, budgets and financial review.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\EXCEL.EXE",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "vscode.analysis",
+            "application_id": "vscode",
+            "profile_id": "analysis",
+            "display_name": "VS Code Data Analysis",
+            "capability_description": "Data Analysis profile with Python and notebook tools for examining CSV, TSV, JSON datasets and analytical projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "development-json",
+      "title": "Build configuration",
+      "expected_scene": "software_development",
+      "expected_action_id": "vscode.development",
+      "context": {
+        "request": {
+          "request_id": "synthetic-development-json",
+          "source_pid": 10012,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Projects\\ClientApp\\package.json",
+          "working_directory": "C:\\Synthetic\\Projects\\ClientApp",
+          "captured_at": "2026-09-27T10:12:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Projects\\ClientApp\\package.json",
+          "extension": ".json",
+          "mime_type": "application/json",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:12:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-development-json",
+          "conversation_title": "Client App Engineering",
+          "conversation_labels": [
+            "software-development"
+          ],
+          "target_message_id": "synthetic-message-development-json",
+          "messages": [
+            {
+              "message_id": "synthetic-message-development-json",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:12:00+08:00",
+              "message_type": "text",
+              "text": "Fix the app dependency versions and build scripts in the development workspace; this is package.json configuration."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "software-development"
+        ],
+        "open_actions": [
+          {
+            "action_id": "vscode.analysis",
+            "application_id": "vscode",
+            "profile_id": "analysis",
+            "display_name": "VS Code Data Analysis",
+            "capability_description": "Data Analysis profile with Python and notebook tools for examining CSV, TSV, JSON datasets and analytical projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "notepad.default",
+            "application_id": "notepad",
+            "profile_id": null,
+            "display_name": "Notepad",
+            "capability_description": "System default plain-text editor for viewing TXT, CSV and JSON without a development project.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\notepad.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "vscode.development",
+            "application_id": "vscode",
+            "profile_id": "development",
+            "display_name": "VS Code Development",
+            "capability_description": "Development profile for code, JSON configuration, debugging and software projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "development-python",
+      "title": "Python source debugging",
+      "expected_scene": "software_development",
+      "expected_action_id": "vscode.development",
+      "context": {
+        "request": {
+          "request_id": "synthetic-development-python",
+          "source_pid": 10013,
+          "source_executable": "C:\\SyntheticApps\\DingTalk.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Projects\\ClientApp\\src\\request_handler.py",
+          "working_directory": "C:\\Synthetic\\Projects\\ClientApp\\src",
+          "captured_at": "2026-09-27T10:13:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Projects\\ClientApp\\src\\request_handler.py",
+          "extension": ".py",
+          "mime_type": "text/x-python",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:13:00+08:00"
+        },
+        "source_application": "DingTalk",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "dingtalk",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-development-python",
+          "conversation_title": "Backend Engineering",
+          "conversation_labels": [
+            "software-development",
+            "debugging"
+          ],
+          "target_message_id": "synthetic-message-development-python",
+          "messages": [
+            {
+              "message_id": "synthetic-message-development-python",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:13:00+08:00",
+              "message_type": "text",
+              "text": "Open the request handler source and debug the route failure using the development profile."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "software-development",
+          "debugging"
+        ],
+        "open_actions": [
+          {
+            "action_id": "vscode.development",
+            "application_id": "vscode",
+            "profile_id": "development",
+            "display_name": "VS Code Development",
+            "capability_description": "Development profile for code, JSON configuration, debugging and software projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "notepad.default",
+            "application_id": "notepad",
+            "profile_id": null,
+            "display_name": "Notepad",
+            "capability_description": "System default plain-text editor for viewing TXT, CSV and JSON without a development project.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\notepad.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "development-log",
+      "title": "Debug log investigation",
+      "expected_scene": "software_development",
+      "expected_action_id": "vscode.development",
+      "context": {
+        "request": {
+          "request_id": "synthetic-development-log",
+          "source_pid": 10014,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Projects\\ClientApp\\debug\\stacktrace.txt",
+          "working_directory": "C:\\Synthetic\\Projects\\ClientApp\\debug",
+          "captured_at": "2026-09-27T10:14:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Projects\\ClientApp\\debug\\stacktrace.txt",
+          "extension": ".txt",
+          "mime_type": "text/plain",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:14:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-development-log",
+          "conversation_title": "Bug Triage",
+          "conversation_labels": [
+            "software-development"
+          ],
+          "target_message_id": "synthetic-message-development-log",
+          "messages": [
+            {
+              "message_id": "synthetic-message-development-log",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:14:00+08:00",
+              "message_type": "text",
+              "text": "Inspect the stacktrace beside service source in the development workspace and trace the failing function."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "software-development"
+        ],
+        "open_actions": [
+          {
+            "action_id": "notepad.default",
+            "application_id": "notepad",
+            "profile_id": null,
+            "display_name": "Notepad",
+            "capability_description": "System default plain-text editor for viewing TXT, CSV and JSON without a development project.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\notepad.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "vscode.development",
+            "application_id": "vscode",
+            "profile_id": "development",
+            "display_name": "VS Code Development",
+            "capability_description": "Development profile for code, JSON configuration, debugging and software projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "creative-svg",
+      "title": "Vector artwork editing",
+      "expected_scene": "creative_media",
+      "expected_action_id": "inkscape.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-creative-svg",
+          "source_pid": 10015,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Design\\Festival\\poster.svg",
+          "working_directory": "C:\\Synthetic\\Design\\Festival",
+          "captured_at": "2026-09-27T10:15:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Design\\Festival\\poster.svg",
+          "extension": ".svg",
+          "mime_type": "image/svg+xml",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:15:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-creative-svg",
+          "conversation_title": "Design Studio",
+          "conversation_labels": [
+            "design",
+            "artwork"
+          ],
+          "target_message_id": "synthetic-message-creative-svg",
+          "messages": [
+            {
+              "message_id": "synthetic-message-creative-svg",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:15:00+08:00",
+              "message_type": "text",
+              "text": "Adjust the poster shapes, colors and layout visually in the vector editor."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "design",
+          "artwork"
+        ],
+        "open_actions": [
+          {
+            "action_id": "vscode.development",
+            "application_id": "vscode",
+            "profile_id": "development",
+            "display_name": "VS Code Development",
+            "capability_description": "Development profile for code, JSON configuration, debugging and software projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "inkscape.default",
+            "application_id": "inkscape",
+            "profile_id": null,
+            "display_name": "Inkscape",
+            "capability_description": "Vector graphics editor for modifying SVG illustrations, layouts and artwork.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\inkscape.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "creative-image",
+      "title": "Storyboard annotation",
+      "expected_scene": "creative_media",
+      "expected_action_id": "paint.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-creative-image",
+          "source_pid": 10016,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Design\\Storyboard\\frame.png",
+          "working_directory": "C:\\Synthetic\\Design\\Storyboard",
+          "captured_at": "2026-09-27T10:16:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Design\\Storyboard\\frame.png",
+          "extension": ".png",
+          "mime_type": "image/png",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:16:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-creative-image",
+          "conversation_title": "Storyboard",
+          "conversation_labels": [
+            "creative-media",
+            "annotation"
+          ],
+          "target_message_id": "synthetic-message-creative-image",
+          "messages": [
+            {
+              "message_id": "synthetic-message-creative-image",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:16:00+08:00",
+              "message_type": "text",
+              "text": "Draw red arrows on this storyboard frame and crop the margin before sharing the artwork."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "creative-media",
+          "annotation"
+        ],
+        "open_actions": [
+          {
+            "action_id": "photos.default",
+            "application_id": "photos",
+            "profile_id": null,
+            "display_name": "Photos",
+            "capability_description": "System default image viewer for PNG photographs and ordinary images without editing.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Photos.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "paint.default",
+            "application_id": "paint",
+            "profile_id": null,
+            "display_name": "Paint",
+            "capability_description": "Image editor for cropping, annotating and drawing on PNG images.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\mspaint.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "creative-video",
+      "title": "Short film editing",
+      "expected_scene": "creative_media",
+      "expected_action_id": "clipchamp.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-creative-video",
+          "source_pid": 10017,
+          "source_executable": "C:\\SyntheticApps\\DingTalk.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Media\\ShortFilm\\raw-take.mp4",
+          "working_directory": "C:\\Synthetic\\Media\\ShortFilm",
+          "captured_at": "2026-09-27T10:17:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Media\\ShortFilm\\raw-take.mp4",
+          "extension": ".mp4",
+          "mime_type": "video/mp4",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:17:00+08:00"
+        },
+        "source_application": "DingTalk",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "dingtalk",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-creative-video",
+          "conversation_title": "Short Film Team",
+          "conversation_labels": [
+            "creative-media",
+            "video-editing"
+          ],
+          "target_message_id": "synthetic-message-creative-video",
+          "messages": [
+            {
+              "message_id": "synthetic-message-creative-video",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:17:00+08:00",
+              "message_type": "text",
+              "text": "Trim this raw take and assemble it with the next shot in the video editor; we are producing the final film."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "creative-media",
+          "video-editing"
+        ],
+        "open_actions": [
+          {
+            "action_id": "vlc.default",
+            "application_id": "vlc",
+            "profile_id": null,
+            "display_name": "VLC",
+            "capability_description": "Video player for watching MP4 footage and checking playback.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\vlc.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "clipchamp.default",
+            "application_id": "clipchamp",
+            "profile_id": null,
+            "display_name": "Clipchamp",
+            "capability_description": "Video editor for assembling and trimming MP4 footage into a finished film.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Clipchamp.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "learning-course",
+      "title": "Course portal",
+      "expected_scene": "learning",
+      "expected_action_id": "edge.study",
+      "context": {
+        "request": {
+          "request_id": "synthetic-learning-course",
+          "source_pid": 10018,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "https://courses.example.invalid/statistics/lesson-2",
+          "working_directory": null,
+          "captured_at": "2026-09-27T10:18:00+08:00"
+        },
+        "target": {
+          "kind": "url",
+          "url": "https://courses.example.invalid/statistics/lesson-2",
+          "scheme": "https",
+          "host": "courses.example.invalid"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-learning-course",
+          "conversation_title": "Study Group",
+          "conversation_labels": [
+            "learning"
+          ],
+          "target_message_id": "synthetic-message-learning-course",
+          "messages": [
+            {
+              "message_id": "synthetic-message-learning-course",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:18:00+08:00",
+              "message_type": "text",
+              "text": "Open the statistics lesson with your course account in the study profile and work through the exercises."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "chrome.personal",
+            "application_id": "chrome",
+            "profile_id": "personal",
+            "display_name": "Chrome Personal",
+            "capability_description": "Browser personal profile for private accounts, leisure, shopping and household use.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "chrome.work",
+            "application_id": "chrome",
+            "profile_id": "work",
+            "display_name": "Chrome Work",
+            "capability_description": "Browser work profile for the fictional Example Company intranet, company documents and meetings.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "edge.study",
+            "application_id": "edge",
+            "profile_id": "study",
+            "display_name": "Edge Study",
+            "capability_description": "Browser study profile for courses, university research and educational PDF reading.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\msedge.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "learning-pdf",
+      "title": "Lecture notes",
+      "expected_scene": "learning",
+      "expected_action_id": "edge.study",
+      "context": {
+        "request": {
+          "request_id": "synthetic-learning-pdf",
+          "source_pid": 10019,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Study\\Algebra\\lecture-notes.pdf",
+          "working_directory": "C:\\Synthetic\\Study\\Algebra",
+          "captured_at": "2026-09-27T10:19:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Study\\Algebra\\lecture-notes.pdf",
+          "extension": ".pdf",
+          "mime_type": "application/pdf",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:19:00+08:00"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-learning-pdf",
+          "conversation_title": "Algebra Class",
+          "conversation_labels": [
+            "learning",
+            "lecture"
+          ],
+          "target_message_id": "synthetic-message-learning-pdf",
+          "messages": [
+            {
+              "message_id": "synthetic-message-learning-pdf",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:19:00+08:00",
+              "message_type": "text",
+              "text": "Read these lecture notes in the study browser profile alongside our course portal for tonight's lesson."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [
+          "learning",
+          "lecture"
+        ],
+        "open_actions": [
+          {
+            "action_id": "acrobat.default",
+            "application_id": "acrobat",
+            "profile_id": null,
+            "display_name": "Acrobat Reader",
+            "capability_description": "System default PDF reader for ordinary local documents with no web account requirement.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\AcroRd32.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "edge.study",
+            "application_id": "edge",
+            "profile_id": "study",
+            "display_name": "Edge Study",
+            "capability_description": "Browser study profile for courses, university research and educational PDF reading.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\msedge.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "learning-library",
+      "title": "University reading list",
+      "expected_scene": "learning",
+      "expected_action_id": "edge.study",
+      "context": {
+        "request": {
+          "request_id": "synthetic-learning-library",
+          "source_pid": 10020,
+          "source_executable": "C:\\SyntheticApps\\QQ.exe",
+          "verb": "open",
+          "target": "https://library.example.invalid/course-reading-list",
+          "working_directory": null,
+          "captured_at": "2026-09-27T10:20:00+08:00"
+        },
+        "target": {
+          "kind": "url",
+          "url": "https://library.example.invalid/course-reading-list",
+          "scheme": "https",
+          "host": "library.example.invalid"
+        },
+        "source_application": "QQ",
+        "source_account_hash": "synthetic-account-0001",
+        "chat_context": {
+          "provider": "qq",
+          "account_id_hash": "synthetic-account-0001",
+          "conversation_id": "synthetic-conversation-learning-library",
+          "conversation_title": "University Reading Group",
+          "conversation_labels": [
+            "learning",
+            "research"
+          ],
+          "target_message_id": "synthetic-message-learning-library",
+          "messages": [
+            {
+              "message_id": "synthetic-message-learning-library",
+              "sender": "Synthetic Sender",
+              "timestamp": "2026-09-27T10:20:00+08:00",
+              "message_type": "text",
+              "text": "Use the university study account to open the reading list and prepare the course summary."
+            }
+          ],
+          "acquisition": "internal",
+          "confidence": 1,
+          "warnings": [
+            "Synthetic fixture; no client or account was accessed."
+          ]
+        },
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "chrome.work",
+            "application_id": "chrome",
+            "profile_id": "work",
+            "display_name": "Chrome Work",
+            "capability_description": "Browser work profile for the fictional Example Company intranet, company documents and meetings.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "edge.study",
+            "application_id": "edge",
+            "profile_id": "study",
+            "display_name": "Edge Study",
+            "capability_description": "Browser study profile for courses, university research and educational PDF reading.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\msedge.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "chrome.personal",
+            "application_id": "chrome",
+            "profile_id": "personal",
+            "display_name": "Chrome Personal",
+            "capability_description": "Browser personal profile for private accounts, leisure, shopping and household use.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\chrome.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "unknown-text",
+      "title": "Unexplained text file",
+      "expected_scene": "unknown",
+      "expected_action_id": "notepad.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-unknown-text",
+          "source_pid": 10021,
+          "source_executable": "C:\\SyntheticApps\\explorer.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Inbox\\item.txt",
+          "working_directory": "C:\\Synthetic\\Inbox",
+          "captured_at": "2026-09-27T10:21:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Inbox\\item.txt",
+          "extension": ".txt",
+          "mime_type": "text/plain",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:21:00+08:00"
+        },
+        "source_application": "explorer",
+        "source_account_hash": null,
+        "chat_context": null,
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "notepad.default",
+            "application_id": "notepad",
+            "profile_id": null,
+            "display_name": "Notepad",
+            "capability_description": "System default plain-text editor for viewing TXT, CSV and JSON without a development project.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\notepad.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "vscode.development",
+            "application_id": "vscode",
+            "profile_id": "development",
+            "display_name": "VS Code Development",
+            "capability_description": "Development profile for code, JSON configuration, debugging and software projects.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Code.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "unknown-pdf",
+      "title": "Unexplained PDF",
+      "expected_scene": "unknown",
+      "expected_action_id": "acrobat.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-unknown-pdf",
+          "source_pid": 10022,
+          "source_executable": "C:\\SyntheticApps\\explorer.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Inbox\\item.pdf",
+          "working_directory": "C:\\Synthetic\\Inbox",
+          "captured_at": "2026-09-27T10:22:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Inbox\\item.pdf",
+          "extension": ".pdf",
+          "mime_type": "application/pdf",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:22:00+08:00"
+        },
+        "source_application": "explorer",
+        "source_account_hash": null,
+        "chat_context": null,
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "acrobat.default",
+            "application_id": "acrobat",
+            "profile_id": null,
+            "display_name": "Acrobat Reader",
+            "capability_description": "System default PDF reader for ordinary local documents with no web account requirement.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\AcroRd32.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "edge.study",
+            "application_id": "edge",
+            "profile_id": "study",
+            "display_name": "Edge Study",
+            "capability_description": "Browser study profile for courses, university research and educational PDF reading.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\msedge.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "unknown-image",
+      "title": "Unexplained image",
+      "expected_scene": "unknown",
+      "expected_action_id": "photos.default",
+      "context": {
+        "request": {
+          "request_id": "synthetic-unknown-image",
+          "source_pid": 10023,
+          "source_executable": "C:\\SyntheticApps\\explorer.exe",
+          "verb": "open",
+          "target": "C:\\Synthetic\\Inbox\\item.png",
+          "working_directory": "C:\\Synthetic\\Inbox",
+          "captured_at": "2026-09-27T10:23:00+08:00"
+        },
+        "target": {
+          "kind": "file",
+          "path": "C:\\Synthetic\\Inbox\\item.png",
+          "extension": ".png",
+          "mime_type": "image/png",
+          "size": 1024,
+          "modified_at": "2026-09-27T10:23:00+08:00"
+        },
+        "source_application": "explorer",
+        "source_account_hash": null,
+        "chat_context": null,
+        "path_labels": [],
+        "open_actions": [
+          {
+            "action_id": "photos.default",
+            "application_id": "photos",
+            "profile_id": null,
+            "display_name": "Photos",
+            "capability_description": "System default image viewer for PNG photographs and ordinary images without editing.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\Photos.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          },
+          {
+            "action_id": "paint.default",
+            "application_id": "paint",
+            "profile_id": null,
+            "display_name": "Paint",
+            "capability_description": "Image editor for cropping, annotating and drawing on PNG images.",
+            "invocation_kind": "executable",
+            "invocation_data": {
+              "executable": "C:\\SyntheticApps\\mspaint.exe",
+              "arguments": [],
+              "synthetic_only": true
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

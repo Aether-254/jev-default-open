@@ -1,11 +1,12 @@
 from __future__ import annotations
 
+import re
 from datetime import datetime
 from enum import StrEnum
 from pathlib import Path
 from typing import Annotated, Any, Literal
 
-from pydantic import AnyUrl, BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class OpenVerb(StrEnum):
@@ -34,9 +35,18 @@ class FileTarget(BaseModel, frozen=True):
 
 class UrlTarget(BaseModel, frozen=True):
     kind: Literal["url"] = "url"
-    url: AnyUrl
+    url: str
     scheme: str
     host: str | None = None
+
+    @field_validator("url")
+    @classmethod
+    def preserve_uri(cls, value: str) -> str:
+        if not re.match(r"^[A-Za-z][A-Za-z0-9+.-]*:", value):
+            raise ValueError("An absolute URI is required")
+        if any(ord(character) < 32 for character in value):
+            raise ValueError("URI must not contain control characters")
+        return value
 
 
 OpenTarget = Annotated[FileTarget | UrlTarget, Field(discriminator="kind")]
@@ -126,7 +136,7 @@ class SceneDecision(BaseModel, frozen=True):
 
 
 class OpenDecision(BaseModel, frozen=True):
-    source: Literal["jev", "preference", "exact_cache", "system_fallback"]
+    source: Literal["jev", "preference", "exact_cache", "system_fallback", "fixture"]
     action_id: str | None
     probabilities: dict[str, float] = Field(default_factory=dict)
     confidence: float | None = Field(default=None, ge=0.0, le=1.0)
@@ -151,3 +161,10 @@ class PreferenceRule(BaseModel, frozen=True):
     action_id: str
     created_at: datetime
     updated_at: datetime
+
+
+class ConfirmationResult(BaseModel, frozen=True):
+    confirmed: bool
+    action_id: str | None = None
+    scene_id: str | None = None
+    remember_scope: PreferenceRule | None = None

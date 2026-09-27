@@ -4,7 +4,12 @@
   "demo_deadline_ms": 20000,
   "context_deadline_ms": 2000,
   "duplicate_window_seconds": 30,
-  "enabled_providers": ["qq", "wechat"],
-  "allowed_uri_schemes": ["*"],
+  "enabled_providers": [],
+  "qq_bridge_mode": "disabled",
+  "qq_runtime_path": null,
+  "qq_allowed_versions": [],
+  "qq_allowed_sha256": [],
+  "path_labels": {},
+  "profile_labels": {},
   "blocked_uri_schemes": ["ms-settings", "shell", "search-ms"]
 }

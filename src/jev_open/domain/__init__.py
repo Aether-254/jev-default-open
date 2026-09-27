@@ -3,6 +3,7 @@
 from .models import (
     ChatContext,
     ChatMessage,
+    ConfirmationResult,
     ContextEnvelope,
     FileTarget,
     OpenAction,
@@ -19,6 +20,7 @@ from .models import (
 __all__ = [
     "ChatContext",
     "ChatMessage",
+    "ConfirmationResult",
     "ContextEnvelope",
     "FileTarget",
     "OpenAction",
