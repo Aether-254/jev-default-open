@@ -40,3 +40,9 @@ venv/
 .ruff_cache/
 native/build*/
 artifacts/
+
+# Local packaging and integration artifacts
+*.spec
+*.obj
+dist-qt-smoke-clean/
+loadNapCat.js

@@ -294,7 +294,10 @@ BOOL WINAPI HookedShellExecuteExW(SHELLEXECUTEINFOW* info) {
         (IsUri(info->lpFile) && info->lpVerb != nullptr && Lower(info->lpVerb) == L"edit")) {
         return g_shell_execute_ex_w(info);
     }
-    constexpr ULONG supported_flags = SEE_MASK_FLAG_NO_UI;
+    // Electron/Chromium callers commonly add NOASYNC to keep ShellExecuteExW
+    // on the calling thread. It does not request an output process handle, so
+    // an accepted broker handoff can preserve the caller-visible contract.
+    constexpr ULONG supported_flags = SEE_MASK_FLAG_NO_UI | SEE_MASK_NOASYNC;
     if ((info->fMask & ~supported_flags) != 0) {
         return g_shell_execute_ex_w(info);
     }

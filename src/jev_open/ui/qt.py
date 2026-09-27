@@ -3,15 +3,20 @@ from __future__ import annotations
 import asyncio
 import concurrent.futures
 import json
+import os
 import queue
+import sys
 import threading
 from collections.abc import Callable, Coroutine
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
 from PySide6.QtCore import Qt, QTimer
 from PySide6.QtGui import QColor, QIcon, QPainter, QPixmap
+from PySide6.QtNetwork import QLocalServer
 from PySide6.QtWidgets import (
     QApplication,
     QCheckBox,
@@ -34,7 +39,8 @@ from PySide6.QtWidgets import (
 )
 
 from jev_open.decision.jev import DEFAULT_SCENES
-from jev_open.domain import ConfirmationResult, ContextEnvelope, OpenDecision
+from jev_open.domain import ConfirmationResult, ContextEnvelope, OpenDecision, OpenRequest, OpenVerb
+from jev_open.single_instance import MAX_MESSAGE_BYTES, SERVER_NAME
 
 SCENE_NAMES = {
     "personal": "个人",
@@ -449,15 +455,23 @@ class QtUserInterfaceModule:
         self._state: Any = None
         self._ready_check: Callable | None = None
         self._test_ok = False
+        self._hook_available = False
         self._consent = False
         self._restart_required = False
         self._onboarding: QDialog | None = None
+        self._local_server: QLocalServer | None = None
+        self._local_buffers: dict[Any, bytearray] = {}
         self._enable_action: Any = None
         self._disable_action: Any = None
 
     @property
     def ready_to_enable(self) -> bool:
-        return self._test_ok and self._consent and not self._restart_required
+        return (
+            self._test_ok
+            and self._hook_available
+            and self._consent
+            and not self._restart_required
+        )
 
     def bind(self, *, submit: Callable, broker: Any, state: Any, ready_check: Any = None) -> None:
         self._submit = submit
@@ -479,6 +493,62 @@ class QtUserInterfaceModule:
         self._collection_timer = QTimer(self._window)
         self._collection_timer.setSingleShot(True)
         self._collection_timer.timeout.connect(self.show_pending)
+        self._start_local_server()
+
+    def _start_local_server(self) -> None:
+        assert self._application is not None
+        server = QLocalServer(self._application)
+        server.setSocketOptions(QLocalServer.SocketOption.UserAccessOption)
+        if not server.listen(SERVER_NAME):
+            QLocalServer.removeServer(SERVER_NAME)
+            if not server.listen(SERVER_NAME):
+                return
+        server.newConnection.connect(self._accept_local_connections)
+        self._local_server = server
+
+    def _accept_local_connections(self) -> None:
+        assert self._local_server is not None
+        while self._local_server.hasPendingConnections():
+            socket = self._local_server.nextPendingConnection()
+            self._local_buffers[socket] = bytearray()
+            socket.readyRead.connect(lambda current=socket: self._read_local_target(current))
+            socket.disconnected.connect(
+                lambda current=socket: self._local_buffers.pop(current, None)
+            )
+
+    def _read_local_target(self, socket: Any) -> None:
+        buffer = self._local_buffers.get(socket)
+        if buffer is None:
+            return
+        buffer.extend(bytes(socket.readAll()))
+        if len(buffer) > MAX_MESSAGE_BYTES:
+            socket.disconnectFromServer()
+            return
+        if b"\n" not in buffer:
+            return
+        raw, _, _ = bytes(buffer).partition(b"\n")
+        try:
+            payload = json.loads(raw)
+            target = payload["target"]
+            if not isinstance(target, str) or not target or len(target) > 16_384:
+                raise ValueError
+            request = OpenRequest(
+                request_id=uuid4().hex,
+                source_pid=os.getpid(),
+                source_executable=Path(sys.executable).resolve(),
+                verb=OpenVerb.OPEN,
+                target=target,
+                captured_at=datetime.now(UTC),
+            )
+            if self._broker is None or self._submit is None:
+                raise RuntimeError
+            self._submit(self._broker.handle_request(request))
+            socket.write(b"OK\n")
+            socket.flush()
+        except (KeyError, TypeError, ValueError, RuntimeError, json.JSONDecodeError):
+            socket.write(b"ERROR\n")
+            socket.flush()
+        socket.disconnectFromServer()
 
     def run(self) -> int:
         self._initialize()
@@ -510,6 +580,9 @@ class QtUserInterfaceModule:
             self._timer.stop()
             self._collection_timer.stop()
             self._tray.hide()
+            if self._local_server is not None:
+                self._local_server.close()
+                QLocalServer.removeServer(SERVER_NAME)
 
     async def enqueue(self, context: ContextEnvelope, decision: OpenDecision) -> ConfirmationResult:
         future: concurrent.futures.Future[ConfirmationResult] = concurrent.futures.Future()
@@ -693,6 +766,9 @@ class QtUserInterfaceModule:
             self._test_ok = bool(result.get("ok")) and all(
                 bool(check.get("ok")) for check in checks
             )
+            # Synthetic/custom self-tests predating this capability field keep
+            # their existing behavior. Production diagnostics always provide it.
+            self._hook_available = bool(result.get("hook_available", True))
             output.setPlainText("\n".join(
                 f"{'通过' if check.get('ok') else '失败'} | {check.get('name', '')}"
                 f" | {check.get('detail', '')}" for check in checks
@@ -702,6 +778,10 @@ class QtUserInterfaceModule:
                 output.appendPlainText("\n未接入 / 限制提示（不代表已通过实测）：")
                 for warning in warnings:
                     output.appendPlainText(f"提示 | {warning}")
+            if self._test_ok and not self._hook_available:
+                output.appendPlainText(
+                    "\n提示 | 当前发行包未启用实验性全局 Hook；可使用 --match 进行 App 匹配。"
+                )
             if self._restart_required:
                 output.appendPlainText("配置已修改；必须先重启应用，自检不能跳过重启。")
             enable_button.setEnabled(self.ready_to_enable)

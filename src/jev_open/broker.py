@@ -58,6 +58,7 @@ class BrokerApplication:
     duplicate_window_seconds: float = 30.0
     maintenance_interval_seconds: float = 86_400
     ready_check: Callable[[], bool | None] | None = None
+    initial_requests: tuple[OpenRequest, ...] = ()
     _pending: dict[str, tuple[asyncio.Task[Any], float, str]] = field(
         default_factory=dict, init=False)
     _requests: set[asyncio.Task[Any]] = field(default_factory=set, init=False)
@@ -118,6 +119,8 @@ class BrokerApplication:
                     ready_check=self.ready_check,
                 )
             self.submit(self._startup()).result(timeout=5)
+            for request in self.initial_requests:
+                self.submit(self.handle_request(request))
             result = self.ui.run()
             completed = True
             return result

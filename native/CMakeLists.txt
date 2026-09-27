@@ -63,6 +63,11 @@ add_executable(native_host host/main.cpp)
 if(JEV_ENABLE_EXPERIMENTAL_HOOK)
     add_library(open_hook SHARED hook/open_hook.cpp)
     target_link_libraries(open_hook PRIVATE detours_objects ole32 shell32)
+    add_executable(hook_capture_probe WIN32 tests/hook_capture_probe.cpp)
+    target_link_libraries(hook_capture_probe PRIVATE shell32 user32)
+    set_target_properties(hook_capture_probe PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/Release"
+        RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/Release")
 else()
     add_library(open_hook SHARED hook/disabled_hook.cpp)
 endif()

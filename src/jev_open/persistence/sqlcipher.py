@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import asyncio
+import ctypes
 import hashlib
 import hmac
 import importlib
@@ -19,6 +20,28 @@ from jev_open.domain import ChatContext, ContextEnvelope, FileTarget, OpenDecisi
 from .dpapi import protect, unprotect
 from .preferences import rule_matches, rule_priority
 from .provenance import fingerprint_file, known_path_exists
+
+
+def _move_no_replace(source: Path, destination: Path) -> None:
+    """Atomically publish a new file without replacing an existing one.
+
+    Python's ``os.rename`` can return ERROR_NOT_SAME_DEVICE inside an EFS
+    encrypted directory even when both paths share that directory. The Win32
+    API used directly does not have that CRT failure mode.
+    """
+    if os.name != "nt":
+        os.link(source, destination)
+        return
+    kernel32 = ctypes.WinDLL("kernel32", use_last_error=True)
+    move_file = kernel32.MoveFileW
+    move_file.argtypes = [ctypes.c_wchar_p, ctypes.c_wchar_p]
+    move_file.restype = ctypes.c_int
+    if move_file(str(source), str(destination)):
+        return
+    error = ctypes.get_last_error()
+    if error in {80, 183}:
+        raise FileExistsError(error, os.strerror(error), str(destination))
+    raise OSError(error, os.strerror(error), str(source), str(destination))
 
 
 class StateSecurityError(RuntimeError):
@@ -93,11 +116,7 @@ class SQLCipherStateModule:
                 os.fsync(destination.fileno())
             # Never overwrite a key created by another simultaneous first launch.
             try:
-                if os.name == "nt":
-                    # Windows rename fails if the destination exists, unlike replace.
-                    os.rename(temporary, self._key_path)
-                else:
-                    os.link(temporary, self._key_path)
+                _move_no_replace(temporary, self._key_path)
             except FileExistsError:
                 return self._load_key()
         finally:

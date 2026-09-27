@@ -98,6 +98,18 @@ def state(tmp_path: Path) -> SQLCipherStateModule:
     return SQLCipherStateModule(tmp_path / "state.db")
 
 
+def test_key_publish_does_not_replace_existing_file(tmp_path: Path) -> None:
+    source = tmp_path / "new.key"
+    destination = tmp_path / "state.db.key"
+    source.write_bytes(b"new")
+    destination.write_bytes(b"existing")
+
+    with pytest.raises(FileExistsError):
+        sqlcipher._move_no_replace(source, destination)
+
+    assert destination.read_bytes() == b"existing"
+
+
 @pytest.mark.asyncio
 async def test_database_is_whole_file_encrypted_and_key_is_dpapi_wrapped(
     state: SQLCipherStateModule,

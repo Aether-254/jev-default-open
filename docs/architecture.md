@@ -19,10 +19,10 @@ Jev Default Open 把「捕获打开请求」「采集上下文」「建议动作
 ### 三个原生产物
 
 - `native_host.exe`：Python 的 stdio 协议对端；处理 Hook 生命周期和紧急停用。
-- `open_hook.dll`：默认是禁用透传构建；只有未验证的 MSVC 实验分支包含 ShellExecute 捕获/IPC/回退代码。
+- `open_hook.dll`：默认构建禁用；发布构建显式使用已验证的 MSVC x64 ON 分支。
 - `native_claim.dll`：供 Broker 与 DLL 对同一请求进行原子所有权裁决，避免 ACK 迟到后原调用和 Broker 同时打开目标。
 
-三者由同一次 x64 构建生成并一起使用，默认位于 `native/build/Release`。`JEV_ENABLE_EXPERIMENTAL_HOOK=OFF` 是默认值，Host 对 `start_hook` 返回 `ERROR_NOT_SUPPORTED`。本机 Zig/CMake 已构建此默认分支并通过 CTest 3/3；这些测试不安装全局 Hook。MSVC 显式 `ON` 才编译实验注入分支，该分支本轮未构建/验证，不能称可靠全局拦截已完成。
+三者由同一次 x64 构建生成并一起使用。`JEV_ENABLE_EXPERIMENTAL_HOOK=OFF` 仍是源码默认值；发布包显式选用独立的 MSVC x64 ON 构建。该构建通过 CTest、start/stop 和包内 ShellExecute 捕获探针。Explorer 通过用户级右键/Open With 进入，并由本地 IPC 转发到已运行实例。
 
 ## 决策链与实验入口
 
@@ -63,6 +63,6 @@ Windows 关联发现、Profile 枚举和 native Hook 受操作系统及应用实
 3. SQLCipher/DPAPI 的 Windows 加密状态测试。
 4. 已完成本机 Zig/CMake 默认禁用构建与 native CTest 3/3；CI 配置 MSVC 默认分支，远端执行结果另行记录。
 5. 24 个合成 Context Envelope 的离线验证；显式 `--live` 才测 Jev 准确率。
-6. 待补实现：QQ 认证传输/trusted adapter、微信具体 reader；待构建/验证：MSVC 实验 Hook；待单独验收：真实 Jev、实际 IM、指定程序拦截、真实 Profile 启动及异常退出恢复。
+6. 待补实现：QQ 认证传输/trusted adapter、微信具体 reader；待单独验收：具体 IM 客户端调用形态、真实 Profile 启动及异常退出恢复。
 
 每一级的通过都不能替代下一层；最终状态记录在 `docs/implementation-status.md`。

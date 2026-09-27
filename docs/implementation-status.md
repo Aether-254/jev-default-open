@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | `main.py --self-test` | 只读检查 Python、依赖、凭据存在性及原生产物；显式配置 `qq_runtime_path` 时读取 QQ.exe 版本/sha256 并报告 allow-list 匹配 | 不调用 Jev、不启动 Hook、不读取聊天/数据库；版本匹配也不等于 QQ adapter ready |
 | `main.py --demo` | 合成数据驱动的离线确认 UI | 不调用 Jev、不安装 Hook、不启动真实 opener |
+| `JevDefaultOpen.exe --register-explorer` | 注册当前用户 Explorer 右键/Open With；`--open-target` 转发到已运行单实例 | 不修改受保护的 Windows `UserChoice` hash |
 | `main.py [--config ...]` | 正常应用，保留引导后的手动启用入口；默认 native 构建拒绝启用 | 不自动提权、不自动启用 Hook |
 | `scripts/evaluate.py` | 校验 24 个合成场景、八种 Scene 的结构与覆盖 | 不联网、不调用模型、不探查账号/聊天、不打开目标 |
 | `scripts/evaluate.py --live` | 显式向 Jev 发送合成场景并生成评测报告 | 不访问真实聊天、不执行候选动作 |
@@ -23,7 +24,7 @@
 | 状态 | `sqlcipher3==0.6.2` 整库加密、DPAPI CurrentUser、历史/偏好；provenance 存取/恢复及启动、每日索引维护已接入 | 自动迁移旧明文数据、跨 Windows 用户恢复或已取得真实 IM 来源 |
 | UI | Qt 托盘/批量确认、显式启停、Provider 数据清理、合成演示及 offscreen 测试 | 所有显示缩放/多显示器/实际 IM 窗口现场验收 |
 | Actions | Windows 候选发现、大小写不敏感的扩展名/scheme 匹配、绝对 executable/Profile 路径校验、受控 argv 启动接口；候选应用子进程移除 Jev/API key 环境变量 | 当前机器每种应用/Profile 已真实启动验证；ShellExecuteW 系统回退没有环境块，不能宣称关联应用也完成凭据隔离 |
-| 原生层 | Zig/CMake 默认禁用构建生成 Host、透传 Hook、原子 claim 三产物；CTest 3/3；显式 ON 在非 MSVC 工具链上会被配置门禁拒绝 | MSVC 显式 ON 实验分支已构建/验证，或可靠全局拦截已完成 |
+| 原生层 | 默认 OFF 构建保留；MSVC x64 ON 构建完成，CTest 3/3；包内 smoke 实际捕获 `ShellExecuteW` 与 `ShellExecuteExW + NOASYNC` | 32 位、AppContainer、跨完整性级别和所有 Shell COM 路径均已覆盖 |
 | QQ | 目标/会话匹配、认证事件输入校验、显式 `createTrustedAdapter` / `createAuthenticatedTransport` 接口、OneBot 11 bounded parser 和合成 replay 测试；可选只读 `qq_runtime_path` 指纹与显式版本/SHA-256 allow-list；配置默认 `qq_bridge_mode=disabled` | 没有匹配当前 QQNT 的生产 transport/trusted adapter 或真实 QQ 聊天读取；NapCat v4.18.28 安装器检测本机 QQ 9.9.27/9.9.28 时下载目标 QQ 返回 HTTP 404，未写入 QQ 目录；runtime 指纹匹配不能进入普通聊天运行 |
 | 微信 | Provider 和 `VerifiedVisibleContextReader` 接口，受控 reader fixture 测试；无具体 reader 实现 | 可自动读取当前客户端可见聊天，只差验收 |
 | 飞书/Slack/钉钉 | 进程识别和明确返回不可用的接口骨架 | 官方 API 授权、消息关联和真实历史读取 |
@@ -49,7 +50,7 @@ git diff --check
 
 | 检查 | 实际结果 |
 | --- | --- |
-| Python 完整测试（含 native test-mode、Qt offscreen、QQ replay、动作与凭据环境边界） | **335 passed，48.59 秒** |
+| Python 完整测试（含 native test-mode、Qt offscreen、QQ replay、OneBot parser、动作与凭据环境边界） | **340 passed，70.74 秒** |
 | Ruff / `git diff --check` | 通过 |
 | QQ Bridge Node 测试 | **29 passed**，仅替身与合成事件 |
 | Native CTest | **3/3 passed**，不启用全局 Hook |
@@ -69,12 +70,18 @@ SHA-256 为 `56a643197c9025725661e1947f5ab931f7a453322f936e9bead21d3be94f17bc`�
 没有运行真实 IM 采集、使用真实用户数据驱动的 Jev 决策或全局注入。未配置 `JEV_NATIVE_TEST_HOST` 的普通
 `scripts/test.ps1` 会跳过依赖该显式路径的 Host 进程测试，不能与上述完整计数混淆。
 
+本轮尝试按用户授权安装 NapCat `v4.18.28` 并升级 QQ 到 `9.9.31.49738`：OneKey 安装器
+检测本机 QQ `9.9.27.45758`/暂存 `9.9.28-46494` 后下载目标 QQ 返回 HTTP 404；winget
+源返回 `0x80072f7d`，官方 Tencent CDN 直链在当前网络返回拦截 HTML，SHA-256 不匹配。
+安装器随后退出，QQNT 目录、聊天数据、进程和插件均未改变。OneBot parser 已完成离线接线，
+真实 WebSocket transport 仍需匹配版本的 NapCat/QQ 安装成功后再启用。
+
 - PowerShell 脚本已通过 Windows PowerShell 5.1 与 PowerShell 7 语法解析；外部命令非零退出的传播已用最小退出码测试验证。
 - `.github/workflows/ci.yml` 配置了 Windows 离线检查与独立原生构建；仅提交 YAML 不代表远端工作流已运行。
 - 默认检查不得要求真实 API 密钥或读取用户聊天，GUI 测试使用 `QT_QPA_PLATFORM=offscreen`。
 - 原生 ownership CTest 只验证映射/原子竞争契约，不能充当全局注入实测。
 - 本机已实际使用 Zig/CMake 默认 `JEV_ENABLE_EXPERIMENTAL_HOOK=OFF` 构建三个产物，CTest **3/3 通过**。默认 `open_hook.dll` 是禁用透传构建，Host 启用请求返回 `ERROR_NOT_SUPPORTED`。
-- MSVC 显式 `ON` 实验分支本轮未构建、未验证。已存在捕获源文件不能替代该验证，也不能称可靠全局拦截已经交付。
+- MSVC 显式 `ON` 分支已独立构建；包内 `--hook-smoke` 实际捕获两种 ShellExecute 调用并立即卸载。Explorer 使用当前用户右键/Open With 注册。
 - 已运行一次 24 场景合成 Jev 评测；上述指标仅证明该固定 fixture 在当次请求中通过，真实 IM、
   真实用户数据、其他模型和生产在线延迟仍未验收。
 

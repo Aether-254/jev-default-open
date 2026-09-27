@@ -17,6 +17,14 @@ Set-Location 'D:\桌面\jev-default-open'
 
 # 只读诊断；缺少密钥或原生产物时返回非零，不表示离线演示不可用
 .\.venv\Scripts\python.exe .\main.py --self-test
+
+# 只读 App 匹配；不会启用 Hook，也不会打开目标
+.\.venv\Scripts\python.exe .\main.py --match 'D:\数据\analysis.csv'
+.\.venv\Scripts\python.exe .\main.py --match 'https://example.invalid/report'
+
+# 注册/取消当前用户的 Explorer 右键与“打开方式”入口
+.\dist\JevDefaultOpen.exe --register-explorer
+.\dist\JevDefaultOpen.exe --unregister-explorer
 ```
 
 没有 `py -3.12` 时，显式传入解释器：
@@ -37,7 +45,7 @@ Set-Location 'D:\桌面\jev-default-open'
 
 `-InstallToolchain` 会调用 winget 并接受对应包/源协议；可能需要较大下载。不会自动安装 Python、QQ 插件或 IM 数据库工具。脚本不会自行启用 Hook 或运行客户端集成测试。
 
-原生构建默认 `JEV_ENABLE_EXPERIMENTAL_HOOK=OFF`：`open_hook.dll` 是禁用透传构建，Host 拒绝 `start_hook` 并返回 `ERROR_NOT_SUPPORTED`。本机已用 Zig/CMake 构建三个产物，CTest **3/3 通过**；这验证的是默认关闭分支。只有 MSVC 支持显式 `-EnableExperimentalHook`/CMake `ON`，该实验分支本轮**未构建、未验证**，不作为可用全局拦截功能交付。
+源码默认构建仍为 `JEV_ENABLE_EXPERIMENTAL_HOOK=OFF`。发布 EXE 显式选用 MSVC x64 `ON` 构建，并通过 CTest、实际 start/stop 和包内 ShellExecute 捕获探针。Hook 仍需在 UI 中手动启用；Explorer 文件使用注册的右键/“打开方式”入口，并转发给已运行的 Jev 单实例。
 
 ## 正常启动与配置
 

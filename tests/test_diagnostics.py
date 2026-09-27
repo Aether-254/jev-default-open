@@ -42,6 +42,7 @@ def test_self_test_reports_disabled_hook_without_reading_chat(tmp_path, monkeypa
     assert not report["live_jev_tested"]
     assert not report["live_im_tested"]
     assert not report["hook_runtime_tested"]
+    assert report["hook_available"] is False
     assert len(report["warnings"]) == 1
     checks = {check["name"]: check for check in report["checks"]}
     assert checks["Native protocol"]["ok"]

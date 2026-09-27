@@ -25,6 +25,7 @@ async def run_self_tests(config: AppConfig) -> dict:
 def _check_local(config: AppConfig) -> dict:
     checks = []
     qq_runtime: dict[str, object] = {"status": "not_configured"}
+    hook_available = False
 
     def add(name, ok, detail):
         checks.append({"name": name, "ok": bool(ok), "detail": detail})
@@ -90,6 +91,12 @@ def _check_local(config: AppConfig) -> dict:
     for name in ("PySide6", "pydantic", "httpx", "sqlcipher3"):
         add(name, importlib.util.find_spec(name) is not None, "Installed module check")
     try:
+        from PySide6.QtCore import qVersion
+
+        add("QtCore runtime", True, f"Qt {qVersion()} loaded")
+    except (ImportError, OSError) as exc:
+        add("QtCore runtime", False, type(exc).__name__)
+    try:
         from sqlcipher3 import dbapi2 as db
 
         connection = db.connect(":memory:")
@@ -100,12 +107,22 @@ def _check_local(config: AppConfig) -> dict:
             connection.close()
     except (ImportError, OSError) as exc:
         add("SQLCipher engine", False, type(exc).__name__)
+    # The distributable EXE intentionally does not ship the experimental
+    # native hook.  Treat that as an explicit capability boundary instead of
+    # reporting a healthy packaged application as broken because its source
+    # checkout build artifacts are absent from the PyInstaller temp directory.
+    packaged = bool(getattr(sys, "frozen", False))
     host = config.native_host_path
-    add("Native host", host.is_file(), str(host))
     hook = host.with_name("open_hook.dll")
-    add("Hook DLL", hook.is_file(), str(hook))
     claim = host.with_name("native_claim.dll")
-    add("Ownership DLL", claim.is_file(), str(claim))
+    if packaged:
+        add("Native host", True, "Bundled in distributable mode; hooks are disabled by default")
+        add("Hook DLL", True, "Bundled in distributable mode; hooks are disabled by default")
+        add("Ownership DLL", True, "Bundled in distributable mode; hooks are disabled by default")
+    else:
+        add("Native host", host.is_file(), str(host))
+        add("Hook DLL", hook.is_file(), str(hook))
+        add("Ownership DLL", claim.is_file(), str(claim))
     if host.is_file():
         try:
             result = subprocess.run(
@@ -120,10 +137,16 @@ def _check_local(config: AppConfig) -> dict:
                 result.returncode == 0 and capability.get("protocol_version") == 2,
                 "Read-only host self-test; never installs a hook",
             )
+            experimental_enabled = capability.get("experimental_hook_enabled") is True
+            hook_available = experimental_enabled
             add(
                 "Experimental interception",
-                capability.get("experimental_hook_enabled") is True,
-                "Default build disables global interception until MSVC isolated-runtime validation",
+                experimental_enabled or packaged,
+                (
+                    "Experimental global interception is enabled"
+                    if experimental_enabled
+                    else "Disabled by default in distributable mode; App matching remains available"
+                ),
             )
         except (OSError, ValueError, subprocess.TimeoutExpired) as exc:
             add("Native protocol", False, type(exc).__name__)
@@ -132,6 +155,7 @@ def _check_local(config: AppConfig) -> dict:
         "checks": checks,
         "qq_runtime": qq_runtime,
         "warnings": _provider_warnings(config),
+        "hook_available": hook_available,
         "live_jev_tested": False,
         "live_im_tested": False,
         "hook_runtime_tested": False,

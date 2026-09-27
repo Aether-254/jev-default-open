@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import sys
 from pathlib import Path
 from typing import Literal
 
@@ -11,6 +12,12 @@ from pydantic import BaseModel, ConfigDict, Field, field_validator, model_valida
 
 def _local_app_data() -> Path:
     return Path(os.environ.get("LOCALAPPDATA", Path.home() / "AppData" / "Local"))
+
+
+def _bundled_native_host() -> Path:
+    if getattr(sys, "frozen", False):
+        return Path(getattr(sys, "_MEIPASS", Path(sys.executable).parent)) / "native_host.exe"
+    return Path(__file__).resolve().parents[2] / "native" / "build" / "Release" / "native_host.exe"
 
 
 class AppConfig(BaseModel, frozen=True):
@@ -37,9 +44,7 @@ class AppConfig(BaseModel, frozen=True):
     blocked_uri_schemes: tuple[str, ...] = ("ms-settings", "shell", "search-ms")
     state_directory: Path = Field(default_factory=lambda: _local_app_data() / "JevDefaultOpen")
     native_host_path: Path = Field(
-        default_factory=lambda: (
-            Path(__file__).resolve().parents[2] / "native" / "build" / "Release" / "native_host.exe"
-        )
+        default_factory=_bundled_native_host
     )
     path_labels: dict[str, tuple[str, ...]] = Field(default_factory=dict)
     configured_actions: tuple[dict[str, object], ...] = ()
